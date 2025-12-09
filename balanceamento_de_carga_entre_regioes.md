@@ -23,7 +23,7 @@ gcloud config set project student-04-b39de5d2fb9b
 
 Informações sobre o projeto e usuário que está ativo no momento. Segue abaixo os comandos:
 
-Listar conta ativa
+Listar conta ativa.
 
 Ex:
 ``
@@ -36,7 +36,7 @@ saída:
 
 <br/>
 
-Listar o id do projeto 
+Listar o id do projeto.
 
 ``
 gcloud config list project
@@ -51,15 +51,15 @@ saída:
 
 Instâncias são máquinas virtuais criadas dentro da nuvem, essas máquinas podem ser criadas em diversos portos espalhados pelo mundo, esses pontos são conhecidos como REGIÕES. Essas regiões possuem um padrão de código que indica em qual ponto do planeta ela está localizada. Ex: **us-east4-b**.
 
-Configurar uma zona para realizar a configuração
+Para realizar configurações de instâncias no google cloud, deve-se ter um projeto que integre essas máquinas. Para selecionar o projeto que irá receber a estrutura desejada realiza-se a configuração do projeto.
 
 ``
   gcloud config set compute/zone us-central1-
 ``
 
-Script de inicialização instala o Apache e cria uma página inicial exclusiva para cada instância
+Script de inicialização instala o Apache e cria uma página inicial exclusiva para cada instância.
 
-### 1. Criar duas instâncias em cada região:
+1.1.Criar duas instâncias em cada região:
 
 ```bash
 gcloud compute instances create www-1 \
