@@ -34,6 +34,7 @@ saída:
 
 <img width="553" height="169" alt="image" src="https://github.com/user-attachments/assets/5dd4f48f-bdee-414f-8ddc-92b8f1bf6cb5" />
 
+
 Listar o id do projeto 
 
 ``
@@ -43,6 +44,7 @@ gcloud config list project
 saída:
 
 <img width="586" height="109" alt="image" src="https://github.com/user-attachments/assets/5c028eaf-fa50-49b4-a70f-c7f5d587ceda" />
+
 
 # 1.Configurar Instâncias 
 
