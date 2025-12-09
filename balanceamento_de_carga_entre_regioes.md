@@ -32,8 +32,9 @@ gcloud auth list
 
 saída:
 
-<img width="553" height="169" alt="image" src="https://github.com/user-attachments/assets/5dd4f48f-bdee-414f-8ddc-92b8f1bf6cb5" />
+<img width="553" height="169" alt="image" src="https://github.com/user-attachments/assets/5dd4f48f-bdee-414f-8ddc-92b8f1bf6cb5" /><br>
 
+<br/>
 
 Listar o id do projeto 
 
@@ -48,10 +49,14 @@ saída:
 
 # 1.Configurar Instâncias 
 
+Instâncias são máquinas virtuais criadas dentro da nuvem, essas máquinas podem ser criadas em diversos portos espalhados pelo mundo, esses pontos são conhecidos como REGIÕES. Essas regiões possuem um padrão de código que indica em qual ponto do planeta ela está localizada. Ex: **us-east4-b**.
+
 Configurar uma zona para realizar a configuração
+
 ``
   gcloud config set compute/zone us-central1-
 ``
+
 Script de inicialização instala o Apache e cria uma página inicial exclusiva para cada instância
 
 ### 1. Criar duas instâncias em cada região:
