@@ -10,7 +10,7 @@ Em seguida, vai configurar o restante do sistema para que as conexões de entrad
 </p>
 
 
-Para realizar determinadas configurações deve-se selecionar o id do projeto que deseja contruir um projeto. O seguinte comando realiza a ação. 
+Para realizar determinadas configurações deve-se selecionar o id do projeto que deseja construir um projeto. O seguinte comando realiza a ação. 
 
 *gcloud config set project [id-projeto]*
 
@@ -21,11 +21,9 @@ gcloud config set project student-04-b39de5d2fb9b
 
 ## Listar  o nome da conta ativa no cloud da google
 
-Para visualizar informações dos projetos que está sendo executado, são utilizados alguns comandos.
+Informações sobre o projeto e usuário que está ativo no momento. Segue abaixo os comandos:
 
-Comando para listar conta ativa
-
-gcloud auth list
+Listar conta ativa
 
 Ex:
 ``
