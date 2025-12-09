@@ -2,6 +2,15 @@
 
 <img width="628" height="320" alt="image" src="https://github.com/user-attachments/assets/d9bebc72-3638-496a-b3b4-ec2a4159d35b" />
 
+
+Selecionar o projeto que será configurado
+
+
+```bash
+gcloud config set project student-04-b39de5d2fb9b
+```
+
+
 Criar um balanceador de carga HTTP(S) que encaminha o tráfego para instâncias em duas regiões diferentes. 
 Neste laboratório, você vai criar quatro instâncias do Compute Engine, duas em cada uma das duas regiões diferentes. 
 Em seguida, vai configurar o restante do sistema para que as conexões de entrada sejam enviadas à instância adequada.
@@ -150,6 +159,22 @@ INTERNAL_IP: 10.128.0.5
 EXTERNAL_IP: 34.67.121.4
 STATUS: RUNNING
 ```
+
+# Configurar uma regra de firewall para permitir tráfego externo chegue às instâncias criadas na nuvem. 
+
+A regra criada que permite que o tráfego na porta designada alcance as instâncias que tenham a tag, a tag tem o nome de "http-tag"
+
+1. Criar a regra de firewall
+```bash
+gcloud compute firewall-rules create www-firewall \
+--target-tags http-tag --allow tcp:80
+```
+1.1 Validar as instâncias 
+
+```bash
+gcloud compute instances list
+```
+
 
 
 Documentação: https://docs.cloud.google.com/sdk/gcloud?hl=pt
