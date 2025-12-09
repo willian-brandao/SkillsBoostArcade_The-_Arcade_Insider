@@ -1,22 +1,33 @@
-# Criar um balanceamento de carga entre regiões
-
-<img width="628" height="320" alt="image" src="https://github.com/user-attachments/assets/d9bebc72-3638-496a-b3b4-ec2a4159d35b" />
+# Criar um balanceamento de carga entre regiões do Google Cloud
 
 
-Selecionar o projeto que será configurado
+Objetivo: Criar um balanceador de carga HTTP(S) que encaminha o tráfego para instâncias em duas regiões diferentes. 
+Neste laboratório, você vai criar quatro instâncias do Compute Engine, duas em cada uma das duas regiões diferentes. 
+Em seguida, vai configurar o restante do sistema para que as conexões de entrada sejam enviadas à instância adequada.
+
+<p align="center">
+  <img width="750" height="450" alt="image" src="https://github.com/user-attachments/assets/d9bebc72-3638-496a-b3b4-ec2a4159d35b"  />
+</p>
 
 
+Para realizar determinadas configurações deve-se selecionar o id do projeto que deseja contruir um projeto. O seguinte comando realiza a ação. 
+
+*gcloud config set project [id-projeto]*
+
+Ex:
 ```bash
 gcloud config set project student-04-b39de5d2fb9b
 ```
 
-
-Criar um balanceador de carga HTTP(S) que encaminha o tráfego para instâncias em duas regiões diferentes. 
-Neste laboratório, você vai criar quatro instâncias do Compute Engine, duas em cada uma das duas regiões diferentes. 
-Em seguida, vai configurar o restante do sistema para que as conexões de entrada sejam enviadas à instância adequada.
-
 ## Listar  o nome da conta ativa no cloud da google
 
+Para visualizar informações dos projetos que está sendo executado, são utilizados alguns comandos.
+
+Comando para listar conta ativa
+
+gcloud auth list
+
+Ex:
 ``
 gcloud auth list
 ``
@@ -25,7 +36,7 @@ saída:
 
 <img width="553" height="169" alt="image" src="https://github.com/user-attachments/assets/5dd4f48f-bdee-414f-8ddc-92b8f1bf6cb5" />
 
-## Listar o id do projeto 
+Listar o id do projeto 
 
 ``
 gcloud config list project
@@ -35,7 +46,7 @@ saída:
 
 <img width="586" height="109" alt="image" src="https://github.com/user-attachments/assets/5c028eaf-fa50-49b4-a70f-c7f5d587ceda" />
 
-# Configurar Instâncias 
+# 1.Configurar Instâncias 
 
 Configurar uma zona para realizar a configuração
 ``
@@ -43,7 +54,7 @@ Configurar uma zona para realizar a configuração
 ``
 Script de inicialização instala o Apache e cria uma página inicial exclusiva para cada instância
 
-1. Criar duas instâncias em cada região:
+### 1. Criar duas instâncias em cada região:
 
 ```bash
 gcloud compute instances create www-1 \
@@ -72,7 +83,7 @@ EXTERNAL_IP: 34.186.117.81
 STATUS: RUNNING
 ```
 
-1.1 Criar segunda instância
+### 1.1 Criar segunda instância
 ```bash
 gcloud compute instances create www-2 \
     --image-family debian-11 \
@@ -99,13 +110,13 @@ EXTERNAL_IP: 34.48.169.6
 STATUS: RUNNING
 ```
 
-2. Criar duas instâncias em outra região
+## 2. Criar duas instâncias em outra região
 
-2.0 - Configurar uma zona para realizar a configuração
+### 2.0 - Configurar uma zona para realizar a configuração
 ``
   ggcloud config set compute/zone us-central1
 ``
-2.1 - Criar primeira instância na zona us-central1-a
+### 2.1 - Criar primeira instância na zona us-central1-a
 ```bash
 gcloud compute instances create www-3 \
     --image-family debian-11 \
@@ -132,7 +143,7 @@ INTERNAL_IP: 10.128.0.4
 EXTERNAL_IP: 34.61.212.226
 STATUS: RUNNING
 ```
-2.2 - Criar segunda instância na zona us-central1-a
+### 2.2 - Criar segunda instância na zona us-central1-a
 
 ```bash
 gcloud compute instances create www-4 \
@@ -160,7 +171,7 @@ EXTERNAL_IP: 34.67.121.4
 STATUS: RUNNING
 ```
 
-# Configurar uma regra de firewall para permitir tráfego externo chegue às instâncias criadas na nuvem. 
+## Configurar uma regra de firewall para permitir tráfego externo chegue às instâncias criadas na nuvem. 
 
 A regra criada que permite que o tráfego na porta designada alcance as instâncias que tenham a tag, a tag tem o nome de "http-tag"
 
