@@ -51,15 +51,15 @@ saída:
 
 Instâncias são máquinas virtuais criadas dentro da nuvem, essas máquinas podem ser criadas em diversos portos espalhados pelo mundo, esses pontos são conhecidos como REGIÕES. Essas regiões possuem um padrão de código que indica em qual ponto do planeta ela está localizada. Ex: **us-east4-b**.
 
-Para realizar configurações de instâncias no google cloud, deve-se ter um projeto que integre essas máquinas. Para selecionar o projeto que irá receber a estrutura desejada realiza-se a configuração do projeto.
+Para realizar configurações de instâncias no google cloud, deve-se ter um projeto que integre essas máquinas e este projeto deve estar alocado em uma região. Para configurar uma região para o projeto, usa-se o comando abaixo:
 
-``
+```bash
   gcloud config set compute/zone us-central1-
-``
+```
 
 Script de inicialização instala o Apache e cria uma página inicial exclusiva para cada instância.
 
-1.1.Criar duas instâncias em cada região:
+1.1.Criar uma instância na região us-east4-b
 
 ```bash
 gcloud compute instances create www-1 \
@@ -88,7 +88,7 @@ EXTERNAL_IP: 34.186.117.81
 STATUS: RUNNING
 ```
 
-### 1.1 Criar segunda instância
+1.2 Criar segunda instância na mesma região
 ```bash
 gcloud compute instances create www-2 \
     --image-family debian-11 \
@@ -115,13 +115,13 @@ EXTERNAL_IP: 34.48.169.6
 STATUS: RUNNING
 ```
 
-## 2. Criar duas instâncias em outra região
+Escolher uma nova zona para criar instâncias
 
-### 2.0 - Configurar uma zona para realizar a configuração
-``
+```bash
   ggcloud config set compute/zone us-central1
-``
-### 2.1 - Criar primeira instância na zona us-central1-a
+```
+
+2.1 Criar primeira instância na zona us-central1-a
 ```bash
 gcloud compute instances create www-3 \
     --image-family debian-11 \
@@ -148,7 +148,7 @@ INTERNAL_IP: 10.128.0.4
 EXTERNAL_IP: 34.61.212.226
 STATUS: RUNNING
 ```
-### 2.2 - Criar segunda instância na zona us-central1-a
+2.2 - Criar segunda instância na zona us-central1-a
 
 ```bash
 gcloud compute instances create www-4 \
