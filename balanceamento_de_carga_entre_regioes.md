@@ -164,7 +164,7 @@ gcloud compute instances create www-4 \
       echo '<!doctype html><html><body><h1>www-4</h1></body></html>' | tee /var/www/html/index.html
 "
 ```
-**Saída:***
+**Saída:**
 ```bash
 Created [https://www.googleapis.com/compute/v1/projects/qwiklabs-gcp-03-90a340b1bba1/zones/us-central1-a/instances/www-4].
 NAME: www-4
@@ -181,18 +181,68 @@ STATUS: RUNNING
 A regra criada que permite que o tráfego na porta designada alcance as instâncias que tenham a tag, a tag tem o nome de "http-tag"
 
 1. Criar a regra de firewall
+
 ```bash
 gcloud compute firewall-rules create www-firewall \
 --target-tags http-tag --allow tcp:80
 ```
-1.1 Validar as instâncias 
+
+1.1 Validar se as instâncias criadas estão em execução
 
 ```bash
 gcloud compute instances list
 ```
 
+# Configurar Serviços para balanceamento de carga
 
+Agora que as máquinas virtuais(instancias) estão criadas, deve-se atribuir servios à elas para para realizar o balancemento de carga.
 
+Objetivo:
+1. Criar um endereço de IP externo estático global que os clientes irão usar para acessar o balanceador de carga.
+2. Criar grupos de instâncias para armazenar instâncias.
+3. Criar uma verificação de integridade, que consulta as instâncias para conferir se estão íntegras. O balanceador de carga só enviar tráfego a instâncias íntegras.
+
+Confguração dos serviços:
+1. Atribuir um endereço de IP externo estático IPv4 para o balanceador de carga:
+
+```bash
+gcloud compute addresses create lb-ip-cr \          # atribui o nome ao IP, nesse caso: lb-ip-cr
+--ip-version=IPV4  \                                # define que o IP reservao é IPv4
+--global                                            # define que o endereço IPv4 não pertence a nenhuma região em específico  
+
+```
+
+2. Criar um grupo de instâncias para cada uma das zonas
+
+```bash
+
+# configurando o grupo de instância da primeira zona 
+gcloud compute instance-groups unmanaged create REGION-resources-w --zone ZONE
+gcloud compute instance-groups unmanaged create us-east4-b-resources-w --zone us-east4-b
+
+# configurando o grupo de instância da segunda zona
+gcloud compute instance-groups unmanaged create REGION-resources-w --zone ZONE
+gcloud compute instance-groups unmanaged create us-central1-a-resources-w --zone us-central1-a
+```
+
+3. Adicione as instâncias criadas anteriormente aos grupos de instâncias.
+
+```bash
+
+gcloud compute instance-groups unmanaged add-instances us-east4-b-resources-w \
+--instances www-1, www-2 \
+--zone us-east4-b
+
+gcloud compute instance-groups unmanaged add-instances us-central1-a-resources-w \
+--instances www-1, www-2 \
+--zone us-central1-a
+```
+
+4. Criar uma verificação de integridade.
+
+```bash
+gcloud compute health-checks create http http-basic-check
+```
 Documentação: https://docs.cloud.google.com/sdk/gcloud?hl=pt
 
 
